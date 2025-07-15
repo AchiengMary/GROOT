@@ -1,3 +1,8 @@
-def predict_growth(data: dict) -> float:
-    # Dummy prediction logic
-    return round(data.get("cyst_size", 3.2) + data.get("growth_rate", 0.5), 2)
+import joblib
+import pandas as pd
+
+model = joblib.load("triaging/models/growth_model.pkl")
+
+def predict_growth(input_dict):
+    df = pd.DataFrame([input_dict])
+    return model.predict(df)[0]

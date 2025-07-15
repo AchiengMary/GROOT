@@ -1,12 +1,12 @@
 import requests
 
-def get_nearby_clinics(lat, lon, radius=3000):
-    endpoint = f"https://maps.googleapis.com/maps/api/place/nearbysearch/json"
+def get_nearby_clinics(lat: float, lon: float, api_key: str, radius=3000):
+    url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json"
     params = {
         "location": f"{lat},{lon}",
         "radius": radius,
         "type": "hospital",
-        "key": "YOUR_GOOGLE_API_KEY"
+        "key": api_key
     }
-    response = requests.get(endpoint, params=params)
-    return response.json()
+    res = requests.get(url, params=params)
+    return res.json().get("results", [])
